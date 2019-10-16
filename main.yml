@@ -1,0 +1,16 @@
+---
+- name: setup
+  hosts: 127.0.0.1
+  connection: local
+  vars:
+    brew_cask_packages:
+      - google-cloud-sdk
+  tasks:
+    - name: update homebrew
+      homebrew:
+        update_homebrew: yes
+    - name: install brew cask packages
+      homebrew_cask:
+        name: "{{ item }}"
+        state: "present"
+      with_items: "{{ brew_cask_packages }}"
