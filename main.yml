@@ -3,12 +3,22 @@
   hosts: 127.0.0.1
   connection: local
   vars:
+    brew_packages:
+      - docker
     brew_cask_packages:
       - google-cloud-sdk
+      - google-japanese-ime
+      - google-chrome
+      - kindle
+      - iterm2
   tasks:
     - name: update homebrew
       homebrew:
         update_homebrew: yes
+    - name: install brew packages
+      homebrew:
+        name: "{{ brew_packages }}"
+        state: "present"
     - name: install brew cask packages
       homebrew_cask:
         name: "{{ item }}"
